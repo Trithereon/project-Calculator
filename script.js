@@ -4,16 +4,12 @@
 let firstOperand = 0;
 let operator = '';
 let secondOperand = 0;
-const maxDisplay = 12;
-
-
 
 // Clicking a digit button should store the button.textContent into an operand variable.
 const digitButton = document.querySelectorAll('button[data-action="digit"]');
 digitButton.forEach(button => {
     button.addEventListener('click', () => {
         updateDisplay(button.textContent);
-        console.log(button.textContent);
     });
 });
 
@@ -21,6 +17,14 @@ const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', () =>{
     updateDisplay(0);
 })
+
+const operatorButton = document.querySelectorAll('button[data-action="operator"]');
+operatorButton.forEach(button => {
+    button.addEventListener('click', () => {
+        updateDisplay(button.textContent);
+    });
+});
+
 
 
 function add(a, b){
