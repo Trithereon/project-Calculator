@@ -1,0 +1,45 @@
+
+
+.container {
+    display: flex;
+    border: 1px black;
+    border-style: double;
+    width: 428px;
+    height: 600px;
+    flex-wrap: wrap;
+    font-family: arial;
+}
+
+.display {
+    display:flex;
+    border: 1px black;
+    border-style: groove;
+    width: 426px;
+    height: 98px;
+    justify-content: right;
+    align-items: center;
+    font-size: 60px;
+}
+
+.clear {
+    display:flex;
+    border: 1px black;
+    border-style: groove;
+    width: 214px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+
+.button {
+    display: flex;
+    border: 1px black;
+    border-style: groove;
+    width: 107px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+
