@@ -1,7 +1,7 @@
 # project-Calculator
 Project: Calculator from The Odin Project
 
-```html
+
     <p>Don’t forget to commit early &amp; often! You can reference the <a href="https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/commit-messages" target="_blank" rel="noopener noreferrer">Commit Messages lesson</a> here!</p>
 
     <p>Here are some use cases (expectations about your project):</p>
