@@ -26,12 +26,17 @@ function divide(a, b){
 function operate(first, op, second){
     switch(op){
         case '+':
-            return add(first, second);
+            return updateDisplay(add(first, second));
         case '-':
-            return subtract(first, second);
+            return updateDisplay(subtract(first, second));
         case '*':
-            return multiply(first, second);
+            return updateDisplay(multiply(first, second));
         case '/':
-            return divide(first, second);
+            return updateDisplay(divide(first, second));
     };
+}
+
+function updateDisplay(content){
+    const display = document.getElementById("display");
+    display.textContent = content;
 }

@@ -10,7 +10,7 @@
     font-family: arial;
 }
 
-.display {
+#display {
     display:flex;
     border: 1px black;
     border-style: groove;
