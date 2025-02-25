@@ -4,7 +4,23 @@
 let firstOperand = 0;
 let operator = '';
 let secondOperand = 0;
+const maxDisplay = 12;
 
+
+
+// Clicking a digit button should store the button.textContent into an operand variable.
+const digitButton = document.querySelectorAll('button[data-action="digit"]');
+digitButton.forEach(button => {
+    button.addEventListener('click', () => {
+        updateDisplay(button.textContent);
+        console.log(button.textContent);
+    });
+});
+
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', () =>{
+    updateDisplay(0);
+})
 
 
 function add(a, b){
@@ -37,6 +53,10 @@ function operate(first, op, second){
 }
 
 function updateDisplay(content){
-    const display = document.getElementById("display");
+    const display = document.getElementById('display');
     display.textContent = content;
+    if (document.getElementById('display').textContent > 999999999999) updateDisplay('Too many digits');
+    return content;
 }
+
+
