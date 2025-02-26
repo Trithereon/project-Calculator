@@ -2,14 +2,11 @@ let firstOperand = null;
 let operator = null;
 let secondOperand = null;
 
-// Regarding buttons: accesskey is an attribute that could maybe grant keyboard control over the input.
-
 // Clicking a digit button should store the button.textContent into an operand variable.
 // Clicking more than one digit, before clicking on an operator, should append the new digit to the end of firstOperand.
 const digitButtons = document.querySelectorAll('button[data-action="digit"]');
 digitButtons.forEach(button => {
     button.addEventListener('click', () => {
-        console.log(`Clicked button: ${button.id}, Text: ${button.textContent}`); // Debugging
         updateDisplay(button.textContent);
         if (operator === null){
             // If no operator has been clicked yet, build firstOperand.
@@ -123,14 +120,9 @@ document.addEventListener("keydown", (event) => {
         event.preventDefault(); // Prevent incorrect behaviour of keys such as Enter and Backspace.
         const button = document.getElementById(keyList[event.key]);
         if (button) {
-            console.log(`Triggering button: ${button.id}`); // Debugging key entry.
             button.click();
         }
-        
-        // if (button) {
-        //     console.log(`Triggering button: ${button.id}`); // Debugging key entry.
-        //     button.dispatchEvent(new Event("click"));
-        // }
+
     }
 });
 
