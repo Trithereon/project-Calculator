@@ -66,6 +66,21 @@ plusMinusButton.addEventListener('click', () => {
     }
 });
 
+// Clicking the backspace button removes the last digit entered.
+const backspaceButton = document.getElementById('backspace');
+backspaceButton.addEventListener('click', () => {
+    if (operator === null) {
+        firstOperand = firstOperand.toString().slice(0, -1);
+        firstOperand = Number(firstOperand);
+        updateDisplay(firstOperand);
+    }
+    else {
+        secondOperand = secondOperand.toString().slice(0, -1);
+        secondOperand = Number(secondOperand);
+        updateDisplay(secondOperand);
+    }
+});
+
 
 
 // Basic math operations
