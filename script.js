@@ -2,6 +2,7 @@ let firstOperand = null;
 let operator = null;
 let secondOperand = null;
 let result = null;
+let displayedValue = null;
 
 // Clicking a digit button should store the button.textContent into an operand variable.
 // Clicking more than one digit, before clicking on an operator, should append the new digit to the end of firstOperand.
@@ -27,10 +28,11 @@ digitButtons.forEach(button => {
 // CLEAR button resets the stored values to null and resets the display to show 0.
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', () =>{
-    updateDisplay(0);
+    updateDisplay(null);
     firstOperand = null;
     operator = null;
     secondOperand = null;
+    result = null;
 })
 
 // Clicking an operator button stores the selected operator value and shows the selected operator in display.
@@ -49,6 +51,19 @@ equalsButton.addEventListener('click', () => {
     firstOperand = result;
     operator = null;
     secondOperand = null;
+});
+
+// Clicking the plusMinus button changes the value on display to negative or positive.
+const plusMinusButton = document.getElementById('plusMinus');
+plusMinusButton.addEventListener('click', () => {
+    if (operator === null) {
+        firstOperand = -firstOperand;
+        updateDisplay(firstOperand);
+    }
+    else {
+        secondOperand = -secondOperand;
+        updateDisplay(secondOperand);
+    }
 });
 
 
@@ -97,9 +112,9 @@ function operate(first, op, second){
 // Updates the display
 function updateDisplay(content){
     const display = document.getElementById('display');
-    display.textContent = content;
-    if (document.getElementById('display').textContent > 999999999999) updateDisplay('Too many digits');
-    return content;
+    if (content > 999999999999) display.textContent = 'Too many digits';
+    else if (content === null) display.textContent = 0; // After CLEAR is pressed, the default value to be displayed is 0, but the stored value is null.
+    else display.textContent = content;
 }
 
 // Keyboard input
