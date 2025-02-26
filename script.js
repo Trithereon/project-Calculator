@@ -9,6 +9,7 @@ let secondOperand = null;
 const digitButtons = document.querySelectorAll('button[data-action="digit"]');
 digitButtons.forEach(button => {
     button.addEventListener('click', () => {
+        console.log(`Clicked button: ${button.id}, Text: ${button.textContent}`); // Debugging
         updateDisplay(button.textContent);
         if (operator === null){
             // If no operator has been clicked yet, build firstOperand.
@@ -95,4 +96,41 @@ function updateDisplay(content){
     return content;
 }
 
+// Keyboard input
+document.addEventListener("keydown", (event) => {
+    const keyList = {
+        "0": "zero",
+        "1": "one",
+        "2": "two",
+        "3": "three",
+        "4": "four",
+        "5": "five",
+        "6": "six",
+        "7": "seven",
+        "8": "eight",
+        "9": "nine",
+        "+": "+",
+        "-": "-",
+        "*": "*",
+        "/": "/",
+        ".": ".",
+        "Enter": "equals",
+        "Backspace": "backspace",
+        "Delete": "clear"
+    };
+
+    if (keyList[event.key]) {
+        event.preventDefault(); // Prevent incorrect behaviour of keys such as Enter and Backspace.
+        const button = document.getElementById(keyList[event.key]);
+        if (button) {
+            console.log(`Triggering button: ${button.id}`); // Debugging key entry.
+            button.click();
+        }
+        
+        // if (button) {
+        //     console.log(`Triggering button: ${button.id}`); // Debugging key entry.
+        //     button.dispatchEvent(new Event("click"));
+        // }
+    }
+});
 
