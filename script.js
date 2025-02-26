@@ -1,6 +1,7 @@
 let firstOperand = null;
 let operator = null;
 let secondOperand = null;
+let result = null;
 
 // Clicking a digit button should store the button.textContent into an operand variable.
 // Clicking more than one digit, before clicking on an operator, should append the new digit to the end of firstOperand.
@@ -10,7 +11,7 @@ digitButtons.forEach(button => {
         updateDisplay(button.textContent);
         if (operator === null){
             // If no operator has been clicked yet, build firstOperand.
-            firstOperand = firstOperand === null ? button.textContent : firstOperand + button.textContent; // If firstOperand is null, give it the first value, otherwise, concatenate the latest value to the end.
+            firstOperand = firstOperand === null || firstOperand === result ? button.textContent : firstOperand + button.textContent; // If firstOperand is null or , give it the first value, otherwise, concatenate the latest value to the end.
             firstOperand = Number(firstOperand); // Convert string back to number.
             updateDisplay(firstOperand); // Display the new value.
         }
@@ -45,31 +46,38 @@ operatorButtons.forEach(button => {
 const equalsButton = document.querySelector('button[data-action="equals"]');
 equalsButton.addEventListener('click', () => {
     operate(firstOperand, operator, secondOperand);
-    firstOperand = null;
+    firstOperand = result;
     operator = null;
     secondOperand = null;
 });
 
 
 
-
+// Basic math operations
 function add(a, b){
-    return a + b;
+    result = a + b;
+    return result;
 }
 
 function subtract(a, b){
-    return a - b;
+    result = a - b;
+    return result;
 }
 
 function multiply(a, b){
-    return a * b;
+    result = a * b;
+    return result;
 }
 
 function divide(a, b){
     if (b === 0) return "ERROR";
-    else return a / b;
+    else {
+        result = a / b;
+        return result;
+    }
 }
 
+// Master math function, which calls the appropriate math operation, based on the operator selected by the user.
 function operate(first, op, second){
     switch(op){
         case '+':
@@ -86,6 +94,7 @@ function operate(first, op, second){
     };
 }
 
+// Updates the display
 function updateDisplay(content){
     const display = document.getElementById('display');
     display.textContent = content;
