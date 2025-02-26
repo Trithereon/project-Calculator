@@ -1,29 +1,57 @@
-// Gets the value data-action, so it can be used as input for a function. e.g. clicking "one" should send 1 to the display, etc.
-// const action = button.getAttribute('data-action'); 
+let firstOperand = null;
+let operator = null;
+let secondOperand = null;
 
-let firstOperand = 0;
-let operator = '';
-let secondOperand = 0;
+// Regarding buttons: accesskey is an attribute that could maybe grant keyboard control over the input.
 
 // Clicking a digit button should store the button.textContent into an operand variable.
-const digitButton = document.querySelectorAll('button[data-action="digit"]');
-digitButton.forEach(button => {
+// Clicking more than one digit, before clicking on an operator, should append the new digit to the end of firstOperand.
+const digitButtons = document.querySelectorAll('button[data-action="digit"]');
+digitButtons.forEach(button => {
     button.addEventListener('click', () => {
         updateDisplay(button.textContent);
+        if (operator === null){
+            // If no operator has been clicked yet, build firstOperand.
+            firstOperand = firstOperand === null ? button.textContent : firstOperand + button.textContent; // If firstOperand is null, give it the first value, otherwise, concatenate the latest value to the end.
+            firstOperand = Number(firstOperand); // Convert string back to number.
+            updateDisplay(firstOperand); // Display the new value.
+        }
+        else {
+            // If an operator has been clicked, build secondOperand using same logic as firstOperand.
+            secondOperand = secondOperand === null ? button.textContent : secondOperand + button.textContent; 
+            secondOperand = Number(secondOperand); 
+            updateDisplay(secondOperand);
+        }
     });
 });
 
+// CLEAR button resets the stored values to null and resets the display to show 0.
 const clearButton = document.getElementById('clear');
 clearButton.addEventListener('click', () =>{
     updateDisplay(0);
+    firstOperand = null;
+    operator = null;
+    secondOperand = null;
 })
 
-const operatorButton = document.querySelectorAll('button[data-action="operator"]');
-operatorButton.forEach(button => {
+// Clicking an operator button stores the selected operator value and shows the selected operator in display.
+const operatorButtons = document.querySelectorAll('button[data-action="operator"]');
+operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
+        operator = button.id; // Storing the id instead of the textContent, since the id will work in operate function, but textContent is more readable in display.
         updateDisplay(button.textContent);
     });
 });
+
+// Clicking the equals button calls the operate function with stored input values, then resets the stored values to null.
+const equalsButton = document.querySelector('button[data-action="equals"]');
+equalsButton.addEventListener('click', () => {
+    operate(firstOperand, operator, secondOperand);
+    firstOperand = null;
+    operator = null;
+    secondOperand = null;
+});
+
 
 
 
@@ -40,19 +68,23 @@ function multiply(a, b){
 }
 
 function divide(a, b){
-    return a / b;
+    if (b === 0) return "ERROR";
+    else return a / b;
 }
 
 function operate(first, op, second){
     switch(op){
         case '+':
-            return updateDisplay(add(first, second));
+            updateDisplay(add(first, second));
+            break;
         case '-':
-            return updateDisplay(subtract(first, second));
+            updateDisplay(subtract(first, second));
+            break;
         case '*':
-            return updateDisplay(multiply(first, second));
+            updateDisplay(multiply(first, second));
+            break;
         case '/':
-            return updateDisplay(divide(first, second));
+            updateDisplay(divide(first, second));
     };
 }
 
