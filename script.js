@@ -37,8 +37,15 @@ clearButton.addEventListener('click', () =>{
 const operatorButtons = document.querySelectorAll('button[data-action="operator"]');
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        operator = button.id; // Storing the id instead of the textContent, since the id will work in operate function, but textContent is more readable in display.
-        updateDisplay(button.textContent);
+        if (operator !== null && secondOperand !== null){
+            equalsButton.click();
+            operator = button.id;
+        }
+
+        else {
+            operator = button.id; // Storing the id instead of the textContent, since the id will work in operate function, but textContent is more readable in display.
+            updateDisplay(button.textContent);
+        }
     });
 });
 
@@ -161,6 +168,7 @@ function updateDisplay(content){
     }
     else if (contentString.includes('.') === true && contentString.length > 12){
         display.textContent = contentString.slice(0, 13);
+        return;
     }
     else if (content === null) {
         display.textContent = 0; // After CLEAR is pressed, the default value to be displayed is 0, but the stored value is null.
