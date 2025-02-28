@@ -13,13 +13,11 @@ digitButtons.forEach(button => {
         if (operator === null){
             // If no operator has been clicked yet, build firstOperand.
             firstOperand = firstOperand === null || firstOperand === result ? button.textContent : firstOperand + button.textContent; // If firstOperand is null or , give it the first value, otherwise, concatenate the latest value to the end.
-            firstOperand = Number(firstOperand); // Convert string back to number.
             updateDisplay(firstOperand); // Display the new value.
         }
         else {
             // If an operator has been clicked, build secondOperand using same logic as firstOperand.
             secondOperand = secondOperand === null ? button.textContent : secondOperand + button.textContent; 
-            secondOperand = Number(secondOperand); 
             updateDisplay(secondOperand);
         }
     });
@@ -81,6 +79,19 @@ backspaceButton.addEventListener('click', () => {
     }
 });
 
+// Clicking the dot button inserts a period, converting the number to a float, for decimals.
+const dotButton = document.getElementById('dot');
+dotButton.addEventListener('click', () => {
+    if (operator === null) {
+        firstOperand = firstOperand + '.';
+        updateDisplay(firstOperand);
+    }
+    else {
+        secondOperand = secondOperand + '.';
+        updateDisplay(secondOperand);
+    }
+});
+
 
 
 // Basic math operations
@@ -109,6 +120,8 @@ function divide(a, b){
 
 // Master math function, which calls the appropriate math operation, based on the operator selected by the user.
 function operate(first, op, second){
+    first = Number(first); // Convert string back to number.
+    second = Number(second);
     switch(op){
         case '+':
             updateDisplay(add(first, second));
