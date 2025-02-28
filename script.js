@@ -151,11 +151,21 @@ function operate(first, op, second){
     };
 }
 
-// Updates the display
+// Updates the display, ensuring the value inputted respects the display limits.
 function updateDisplay(content){
     const display = document.getElementById('display');
-    if (content > 999999999999) display.textContent = 'Too many digits';
-    else if (content === null) display.textContent = 0; // After CLEAR is pressed, the default value to be displayed is 0, but the stored value is null.
+    const contentString = String(content);
+    if (contentString.includes('.') === false && contentString.length > 12) {
+        display.textContent = 'Too many digits';
+        return;
+    }
+    else if (contentString.includes('.') === true && contentString.length > 12){
+        display.textContent = contentString.slice(0, 13);
+    }
+    else if (content === null) {
+        display.textContent = 0; // After CLEAR is pressed, the default value to be displayed is 0, but the stored value is null.
+        return;
+    }
     else display.textContent = content;
 }
 
@@ -182,13 +192,8 @@ document.addEventListener("keydown", (event) => {
         "Delete": "clear"
     };
 
-    if (keyList[event.key]) {
-        event.preventDefault(); // Prevent incorrect behaviour of keys such as Enter and Backspace.
-        const button = document.getElementById(keyList[event.key]);
-        if (button) {
-            button.click();
-        }
-
-    }
+    event.preventDefault(); // Prevent incorrect behaviour of keys such as Enter and Backspace.
+    const button = document.getElementById(keyList[event.key]);
+    button.click();
 });
 
