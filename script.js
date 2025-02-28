@@ -15,6 +15,7 @@ digitButtons.forEach(button => {
             firstOperand = firstOperand === null || firstOperand === result ? button.textContent : firstOperand + button.textContent; // If firstOperand is null or , give it the first value, otherwise, concatenate the latest value to the end.
             updateDisplay(firstOperand); // Display the new value.
         }
+
         else {
             // If an operator has been clicked, build secondOperand using same logic as firstOperand.
             secondOperand = secondOperand === null ? button.textContent : secondOperand + button.textContent; 
@@ -52,10 +53,14 @@ operatorButtons.forEach(button => {
 // Clicking the equals button calls the operate function with stored input values, then resets the stored values to null.
 const equalsButton = document.querySelector('button[data-action="equals"]');
 equalsButton.addEventListener('click', () => {
+    if (operator === null || secondOperand === null) return; // If user presses equals before all three variables are entered, prevent any further action from the equalsButton.
+    
+    else {
     operate(firstOperand, operator, secondOperand);
     firstOperand = result;
     operator = null;
     secondOperand = null;
+    }
 });
 
 // Clicking the plusMinus button changes the value on display to negative or positive.
@@ -65,6 +70,7 @@ plusMinusButton.addEventListener('click', () => {
         firstOperand = -firstOperand;
         updateDisplay(firstOperand);
     }
+
     else {
         secondOperand = -secondOperand;
         updateDisplay(secondOperand);
@@ -79,6 +85,7 @@ backspaceButton.addEventListener('click', () => {
         firstOperand = Number(firstOperand);
         updateDisplay(firstOperand);
     }
+
     else {
         secondOperand = secondOperand.toString().slice(0, -1);
         secondOperand = Number(secondOperand);
@@ -100,12 +107,15 @@ dotButton.addEventListener('click', () => {
             updateDisplay(firstOperand);
         }
     }
+
     else {
         if (secondOperand !== null && secondOperand.includes('.') === true) return;
+
         else if (secondOperand === null){
             secondOperand = '0.';
             updateDisplay(secondOperand);
         }
+
         else{
             secondOperand += '.';
             updateDisplay(secondOperand);
@@ -166,14 +176,17 @@ function updateDisplay(content){
         display.textContent = 'Too many digits';
         return;
     }
+
     else if (contentString.includes('.') === true && contentString.length > 12){
         display.textContent = contentString.slice(0, 13);
         return;
     }
+
     else if (content === null) {
         display.textContent = 0; // After CLEAR is pressed, the default value to be displayed is 0, but the stored value is null.
         return;
     }
+
     else display.textContent = content;
 }
 
