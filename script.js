@@ -79,16 +79,30 @@ backspaceButton.addEventListener('click', () => {
     }
 });
 
-// Clicking the dot button inserts a period, converting the number to a float, for decimals.
-const dotButton = document.getElementById('dot');
+// Clicking the dot button inserts a decimal point.
+const dotButton = document.getElementById('.');
 dotButton.addEventListener('click', () => {
     if (operator === null) {
-        firstOperand = firstOperand + '.';
-        updateDisplay(firstOperand);
+        if (firstOperand !== null && firstOperand.includes('.') === true) return;
+        else if (firstOperand === null){
+            firstOperand = '0.';
+            updateDisplay(firstOperand);
+        }
+        else {
+            firstOperand += '.';
+            updateDisplay(firstOperand);
+        }
     }
     else {
-        secondOperand = secondOperand + '.';
-        updateDisplay(secondOperand);
+        if (secondOperand !== null && secondOperand.includes('.') === true) return;
+        else if (secondOperand === null){
+            secondOperand = '0.';
+            updateDisplay(secondOperand);
+        }
+        else{
+            secondOperand += '.';
+            updateDisplay(secondOperand);
+        }
     }
 });
 
